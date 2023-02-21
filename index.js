@@ -59,6 +59,41 @@ const addEmployee = () => {
         }
     ])
     .then(employeeInfo => {
-        
+        let {position, name, id, email, officeNumber, github, school, addMoreEmployees} = employeeInfo
+        let employee;
+
+        if (position === 'Manager') {
+            employee = new Manager (naame, id, email, officeNumber)
+
+        } else if (position === 'Engineer') {
+            employee = new Engineer (name, id, email, github)
+
+        } else if (position === 'Intern') {
+            employee = new Intern (name, id, email, school)
+        }
+
+        team.push(employee)
+
+        if (addMoreEmployees) {
+            addEmployee(team)
+
+        } else {
+            writeFile(team)
+        }
     })
 }
+
+const writeFile = (team) => {
+    fs.writeFile('./dist/index.html', generateHTML(team), err => {
+        if (err) {
+            console.log(err)
+            return
+        } else {
+            console.log('You successfully created your team profile! Open the index.html in the browser to view your teams webpage!')
+        }
+    })
+}
+
+
+
+addEmployee()
