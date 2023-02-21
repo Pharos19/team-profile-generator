@@ -6,12 +6,12 @@ const generateHTML = require('./src/generateHTML')
 
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
-const Manger = require('./lib/Manager')
+const Manager = require('./lib/Manager')
 
 const team = []
 
 const addEmployee = () => {
-    inquirer.createPromptModule([
+    inquirer.prompt([
         {
             type: 'list',
             name: 'position',
@@ -21,7 +21,7 @@ const addEmployee = () => {
         {
             type: 'input',
             name: 'name',
-            message: 'Please enter employee name.'
+            message: 'Please enter the employees name.'
         },
         {
             type: 'input',
@@ -40,10 +40,10 @@ const addEmployee = () => {
             when: (input => input.position === 'Manager')
         },
         {
-            type: 'input',
-            name: 'github',
-            message: 'What is the Github username of this engineer?',
-            when: (input => input.position === 'Engineer')
+           type: 'input',
+           name: 'github',
+           message: 'What is the GitHub username of this engineer?',
+           when: (input => input.position === 'Engineer')
         },
         {
             type: 'input',
@@ -63,26 +63,28 @@ const addEmployee = () => {
         let employee;
 
         if (position === 'Manager') {
-            employee = new Manager (naame, id, email, officeNumber)
+            employee = new Manager (name, id, email, officeNumber)
 
         } else if (position === 'Engineer') {
             employee = new Engineer (name, id, email, github)
 
         } else if (position === 'Intern') {
             employee = new Intern (name, id, email, school)
+
         }
 
         team.push(employee)
 
         if (addMoreEmployees) {
             addEmployee(team)
-
+            
         } else {
             writeFile(team)
         }
     })
 }
 
+//team shows undefined value
 const writeFile = (team) => {
     fs.writeFile('./dist/index.html', generateHTML(team), err => {
         if (err) {
@@ -93,7 +95,5 @@ const writeFile = (team) => {
         }
     })
 }
-
-
 
 addEmployee()
