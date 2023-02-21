@@ -75,5 +75,64 @@ const generateHTML = (team) => {
     
     for (let i = 0; i < team.length; i++) {
         const employee = team[i]
-    }
+        const position = employee.getPosition()
+
+        if(position === 'Engineer') {
+            const engineerCard = generateEngineer(employee)
+            employeeContainer.push(engineerCard)
+        }
+
+        if(position === 'Intern') {
+            const InternCard = generateIntern(employee)
+            employeeContainer.push(InternCard)
+        }
+
+        if(position === 'Manager') {
+            const managerCard = generateManager(employee)
+            employeeContainer.push(managerCard)
+        }
+ }
+
+ const employeeCards = employeeContainer.join('')
+
+ const generatedTeam = generateHTML(employeeCards)
+ return generatedTeam
+
 }
+
+const generatedHTML = (employeeCards) => {
+    return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./style.css" rel="stylesheet" >
+        <title>Team Profile Generator</title>
+    </head>
+    <body>
+        <header>
+            <h1>My Team</h1>
+        </header>
+        <main>
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="container">
+                ${employeeCards}
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+    `
+}
+
+
+
+
+
+
+
+
+
+module.exports = generateHTML
