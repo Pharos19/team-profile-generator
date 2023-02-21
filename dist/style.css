@@ -2,8 +2,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
-    color: white;
+    background-color: cornflowerblue;
+    color: ivory;
     height: 250px;
     margin-bottom: 25px;
 }
@@ -29,6 +29,6 @@ main {
 
 .card-body {
     border-radius: 5px 5px 0 0;
-    background-color: blue;
-    color: white;
+    background-color: coral;
+    color: bisque;
 }
